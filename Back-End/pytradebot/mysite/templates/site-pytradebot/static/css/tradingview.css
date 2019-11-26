@@ -1,0 +1,20 @@
+#col-widget-dados,
+#col-widget-grafico,
+#tradingview_c2af7 {
+   width: 100%;
+   height: 500px !important;
+}
+@media (max-width: 767px) {
+  #col-widget-dados,
+  #col-widget-grafico,
+  #tradingview_c2af7 {
+      height: 450px !important;
+   }
+}
+@media (max-width: 420px) {
+  #col-widget-dados,
+  #col-widget-grafico,
+  #tradingview_c2af7 {
+      height: 320px !important;
+   }
+}

@@ -1,0 +1,58 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Estratégia listar{% endblock %}
+
+{% block content %}
+<!-- Corpo -->
+<!-- Tables -->
+<section class="tables">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Lista de Estratégias</h2>
+        </div>
+        <div class="default-table">
+          <table>
+            <thead>
+              <tr>
+                <th>ID.</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#10</td>
+                <td>teste</td>
+                <td>Compra</td>
+              </tr>
+              <tr>
+                <td>#12</td>
+                <td>teste</td>
+                <td>Compra</td>
+              </tr>
+              <tr>
+                <td>#13</td>
+                <td>teste</td>
+                <td>Venda</td>
+              </tr>
+              <tr>
+                <td>#14</td>
+                <td>teste</td>
+                <td>Venda</td>
+              </tr>
+              <tr>
+                <td>#151</td>
+                <td>teste</td>
+                <td>Venda</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

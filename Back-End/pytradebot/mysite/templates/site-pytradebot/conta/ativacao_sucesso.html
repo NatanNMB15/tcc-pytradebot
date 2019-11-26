@@ -1,0 +1,21 @@
+{% extends 'site-pytradebot/base/base_index.html' %}
+{% load static %}
+
+{% block title %}Cadastro ativado{% endblock %}
+
+{% block header %}
+<meta http-equiv="refresh" content="5;url={% url 'login' %}" />
+{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading mt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 alert alert-success" role="alert">
+        <p>Cadastro realizado com sucesso. Você será redirecionado para a página de Login em 5 segundos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

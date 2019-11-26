@@ -1,0 +1,17 @@
+{% extends 'site-pytradebot/base/base_index.html' %}
+{% load static %}
+
+{% block title %}Confirmar Email{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading mt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-justify alert alert-success" role="alert">
+        <p>Por favor confirme o seu email. Foi enviado um email de confirmação para o email {{ email }}.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

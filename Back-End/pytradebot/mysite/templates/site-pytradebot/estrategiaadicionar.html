@@ -1,0 +1,40 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Adicionar estratégia{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Estratégia</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Corpo -->
+<section class="forms">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Nova Estratégia</h2>
+        </div>
+        <form id="contact" action="" method="post">
+          <div class="col-md-6">
+            <fieldset>
+              <input name="name" type="text" class="form-control" id="name" placeholder="Nome da Estratégia..." required="">
+            </fieldset>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" id="form-submit" class="button"><a href="{% url 'estrategiacriar' %}">Submit</a></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

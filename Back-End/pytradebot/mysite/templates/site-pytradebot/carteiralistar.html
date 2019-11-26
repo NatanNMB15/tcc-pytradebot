@@ -1,0 +1,54 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Listar carteira{% endblock %}
+
+{% block content %}
+<!-- Corpo -->
+<!-- Tables -->
+<section class="tables mt-0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Lista de Carteira(s)</h2>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered w-auto">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center text-justify" scope="col">Chave API</th>
+                <th class="text-center text-justify" scope="col">Saldo (BTC)</th>
+                <th class="text-center text-justify" scope="col">Valor por operação</th>
+                <th class="text-center text-justify" scope="col">Número de operações</th>
+                <th class="text-center text-justify" scope="col">Modo de simulação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {% if existe_carteira %}
+                  <td class="text-center text-justify" scope="row">{{ chave_api }}</td>
+                  <td class="text-center text-justify">{{ saldo }}</td>
+                  <td class="text-center text-justify">{{ valor_operacao }}</td>
+                  <td class="text-center text-justify">{{ num_operacoes }}</td>
+                  {% if simulacao %}
+                    <td class="text-center text-justify">Ativado</td>
+                  {% else %}
+                    <td class="text-center text-justify">Desativado</td>
+                  {% endif %}
+                {% else %}
+                  <td class="text-center text-justify" scope="row"></td>
+                  <td class="text-center text-justify"></td>
+                  <td class="text-center text-justify"></td>
+                  <td class="text-center text-justify"></td>
+                  <td class="text-center text-justify"></td>
+                {% endif %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

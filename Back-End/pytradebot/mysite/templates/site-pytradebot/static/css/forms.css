@@ -1,0 +1,40 @@
+label.field-required::after {
+    content: "\00a0*";
+}
+.modal-dialog {
+    width:80%;
+}
+
+input:required {
+    box-shadow:none !important;
+}
+
+.parsley-success {
+    border-color: green !important;
+}
+
+.parsley-error {
+    border-color: red !important;
+}
+
+.parsley-errors-list li {
+    margin-left: 0;
+    display: inline-block;
+    list-style-type: none;
+    color: #e9322d;
+}
+
+.parsley-errors-list li::before {
+    content: "\2716\20";  /* adds a red cross before the error message */
+}
+
+.errorlist li {
+    margin-left: 0;
+    display: inline-block;
+    list-style-type: none;
+    color: #e9322d;
+}
+
+.errorlist li::before {
+    content: "\2716\20";  /* adds a red cross before the error message */
+}

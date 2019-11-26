@@ -1,0 +1,27 @@
+{% extends 'site-pytradebot/base/base_login.html' %}
+{% load static %}
+
+{% block title %}Senha redefinida{% endblock %}
+
+{% block header %}
+<meta http-equiv="refresh" content="5;url={% url 'logout' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="sidenav">
+   <div class="login-main-text">
+      <h2>Redefinir Senha</h2>
+   </div>
+</div>
+<div class="main">
+   <div class="container-fluid mb-5">
+      <div class="row mt-3">
+         <div class="mt-5 col-md-12 col-sm-12">
+            <div class="text-justify alert alert-success" role="alert">
+               <p>Sua senha foi redefinida com sucesso. Você será redirecionado para a página inicial em 5 segundos.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

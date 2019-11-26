@@ -1,0 +1,7 @@
+Dockerfile
+Readme-gcloud.txt
+test.sh
+*.pyc
+*.pyo
+*.pyd
+__pycache__

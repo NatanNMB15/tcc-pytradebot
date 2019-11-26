@@ -1,0 +1,81 @@
+{% load static %}
+{% load multiply %}
+
+<!-- Corpo -->
+<!-- Tables -->
+<section class="tables mt-0 mt-md-0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Histórico de Transações</h2>
+        </div>
+      </div>
+      <div class="col-md-12 mb-5">
+        <fieldset>
+          <label for="porclucro">Porcentagem total de lucros realizados</label>
+          <input name="porclucro" type="text" class="form-control" id="porclucro" value="{{ lucro }}" readonly>
+        </fieldset>
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-responsive text-center w-auto">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center text-justify" scope="col">ID</th>
+                <th class="text-center text-justify" scope="col">Criptomoedas</th>
+                <th class="text-center text-justify" scope="col">Quantidade</th>
+                <th class="text-center text-justify" scope="col">Status do Trade</th>
+                <th class="text-center text-justify" scope="col">Preço de Compra</th>
+                <th class="text-center text-justify" scope="col">Preço de Venda</th>
+                <th class="text-center text-justify" scope="col">Lucro</th>
+                <th class="text-center text-justify" scope="col">Data de abertura</th>
+                <th class="text-center text-justify" scope="col">Data de fechamento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trade in trades %}
+              <tr>
+                <td class="text-center text-justify" scope="row">{{ trade.id }}</td>
+                <td class="text-center text-justify">{{ trade.pair }}</td>
+                <td class="text-center text-justify">{{ trade.amount|floatformat:2 }}</td>
+                {% if trade.is_open and trade.status_buy_sell == 'open' %}
+                  <td class="text-center text-justify">Em Aberto</td>
+                  <td class="text-center text-justify">{{ trade.open_rate|floatformat:10 }}</td>
+                  <td class="text-center text-justify"></td>
+                {% elif trade.is_open and trade.status_buy_sell == 'buy' %}
+                  <td class="text-center text-justify">Comprando</td>
+                  <td class="text-center text-justify"></td>
+                  <td class="text-center text-justify"></td>
+                {% elif trade.is_open and trade.status_buy_sell == 'sell' %}
+                  <td class="text-center text-justify">Vendendo</td>
+                  <td class="text-center text-justify">{{ trade.open_rate|floatformat:10 }}</td>
+                  <td class="text-center text-justify"></td>
+                {% else %}
+                  <td class="text-center text-justify">Fechado</td>
+                  <td class="text-center text-justify">{{ trade.open_rate|floatformat:10 }}</td>
+                  <td class="text-center text-justify">{{ trade.close_rate|floatformat:10 }}</td>
+                {% endif %}
+                {% if trade.close_profit != None %}
+                  <td class="text-center text-justify">
+                    {{ trade.close_profit|multiply:100|floatformat:2 }}%
+                  </td>
+                {% else %}
+                  <td class="text-center text-justify"></td>
+                {% endif %}
+                <td class="text-center text-justify">{{ trade.open_date }}</td>
+                {% if trade.close_date != None %}
+                  <td class="text-center text-justify">{{ trade.close_date }}</td>
+                {% else %}
+                  <td class="text-center text-justify"></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+            

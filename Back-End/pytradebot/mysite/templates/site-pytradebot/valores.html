@@ -1,0 +1,65 @@
+{% extends 'site-pytradebot/base/base_index.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="Realizar a contribuição de uma nova era digital, tornando o investimento de criptomoedas ainda mais acessível." />
+{% endblock %}
+
+{% block title %}Missão, visão e valores{% endblock %}
+
+{% block content %}
+<!-- Top Image -->
+<section class="top-image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <img src="{% static 'images/valores.jpg' %}" alt="Valores">
+        <div class="down-content">
+          <h4>Valores</h4>
+          <ul>
+            <li><p>Ética.</p></li>
+            <li><p>Respeito às pessoas.</p></li>
+            <li><p>Profissionalismo.</p></li>
+            <li><p>Inovação.</p></li>
+            <li><p>Seriedade.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Left Image -->
+<section class="left-image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{% static 'images/missao.png' %}" alt="Missão">
+      </div>
+      <div class="col-md-6">
+        <div class="right-content">
+          <h4>Missão</h4>
+          <p>Realizar para a contribuição de uma nova era digital, tornando o investimento de criptomoedas ainda mais acessível.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Right Image -->
+<section class="right-image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="left-content">
+          <h4>Visão</h4>
+          <p>Se tornar referência no mercado de investimento em criptomoedas, abrindo oportunidades para você.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static 'images/visao.jpg' %}" alt="Visão">
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

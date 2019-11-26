@@ -1,0 +1,60 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Testar estratégia{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Teste de Estratégia</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Corpo -->
+<section class="forms">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Tipo de Estratégia:</h2>
+        </div>
+        <form id="contact" action="" method="post">
+          <div class="col-md-4 col-sm-4">
+              <div class="circle-item">
+                <input name="demo-priority" type="radio" id="temporeal" value="temporeal" checked>
+                <label for="temporeal">Tempo Real</label>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="circle-item">
+                  <input name="demo-priority" type="radio" id="intervalo" value="intervalo">
+                  <label for="intervalo">Por Intervalo de Tempo</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <select name="category" id="category">
+                  <option value="categories" selected>Escolha a Estratégia</option>
+                  <option value="estrategia1">Estratégia 1</option>
+                  <option value="estrategia2">Estratégia 2</option>
+                  <option value="estrategia3">Estratégia 3</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <fieldset>
+                  <input name="volume" type="number" class="form-control" id="volume" placeholder="Volume da Criptomoeda..." required="">
+                </fieldset>
+              </div>
+              <div class="col-md-12">
+                <button type="submit" id="form-submit" class="button">Submit</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

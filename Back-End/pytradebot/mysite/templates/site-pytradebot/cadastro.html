@@ -1,0 +1,87 @@
+{% extends 'site-pytradebot/base/base_index.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="Realize o seu cadastro no sistema." />
+{% endblock %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block header %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet" integrity="sha384-R+hE75lzVEbCCMXAol2DJWT4oS3HbiOLzbm9xSQVCd2F0dQoqYULWOqm0CcZOD3X" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<!-- Form Cadastro -->
+<section class="forms mt-5 mt-md-5 mt-lg-0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Cadastro</h2>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalTermos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {% include './iframe/termosuso.html' %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <form name="{{ form.form_name }}" id="cadastro" action="." method="post" data-parsley-validate>
+        {% csrf_token %}
+          <div class="row">
+            {% for field in form %}
+              {% if field.name == 'termos_uso' %}
+                <div class="col-md-12">
+                  <div class="radio-item">
+                    {{ field }}
+                    {{ field.label_tag }}
+                    <!-- Exibir Modal dos Termos de Uso -->
+                    <a href="#" data-toggle="modal" data-target="#modalTermos">Leia os termos de uso</a>
+                    {{ field.errors }}
+                  </div>
+                </div>
+              {% else %}
+                {% if field.name == 'email' %}
+                  <div class="col-md-12 form-group">
+                {% else %}
+                  <div class="col-md-6 form-group">
+                {% endif %}
+                    <fieldset>
+                      {{ field.label_tag }}
+                      {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                      {% endif %}
+                      {{ field }}
+                      {{ field.errors }}
+                    </fieldset>
+                  </div>
+              {% endif %}
+            {% endfor %}
+            <div class="col-md-12 form-group">
+              {{ form.non_field_errors }}
+              <button id="form-submit" class="button" type="submit">Cadastrar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'jquery/jquery.mask.min.js' %}" integrity="sha384-CevauvEMZ8vrquU3i+GU0e4y7y/rW1encRFJFxXz/wDFO1YDMswE78+PcFMF5Suz" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/cadastro.js' %}" integrity="sha384-rbcx+qpEkmGL+pJr+PiNgAfyrdQ6sC127TPb1JEsGH0CRYipdiN39xp/EllDCADU" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'parsley/parsley.min.js' %}" integrity="sha384-JUOh6kjFo/adXnDgqD2bUZ5UnBiU82g4ou4bPgzsX4L8ajKYoW5lGrMSXBLskjK+" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'parsley/i18n/pt-br.js' %}" integrity="sha384-Art5n0YDAI7kJGolNQH34PnZ99Z0dCKhHLprBAMR0/TGNcGyZqMfmgYmEOyW+f8P" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'ajax/config.js' %}" integrity="sha384-1pljO3Kc4KuZTuZR6SW2Fwg99qvUR/eaKoBeeb4keedIhEjZs9yeFnX98G+1hS8M" crossorigin="anonymous"></script>
+{% endblock %}

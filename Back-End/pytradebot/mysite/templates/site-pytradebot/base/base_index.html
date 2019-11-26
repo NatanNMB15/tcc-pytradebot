@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="author" content="Natan Barbosa, Cesar Marcon" />
+    <meta name=”robots” content=”index,follow” />
+    <meta name="revisit-after" content="1 day" />
+    <meta http-equiv="content-language" content="pt-br" />
+    <meta name="generator" content="N/A" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+    
+    {% block meta %}
+    {% endblock %}
+    
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{% static 'css/font_google_roboto_slab.css' %}" rel="stylesheet" integrity="sha384-frhoIwE8xMzfQMXVlzPFYGdjOCYg0+irBBkqulJLsvPEcehKKNqgL4Clh8fEae0u" crossorigin="anonymous">
+    <link href="{% static 'css/fontawesome.all.min.css' %}" rel="stylesheet" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="{% static 'css/templatemo-style.css' %}" rel="stylesheet" integrity="sha384-I4nUhETLJiy9fGpi25/VUDVtrzGhudh5yxAjA72EzBSMOkd6dkb+YaVGE+wVhlaR" crossorigin="anonymous">
+    <link href="{% static 'css/owl.css' %}" rel="stylesheet" integrity="sha384-xJnqRl2omE2qUypCKA/xxcO/ZTX/tqcJUyqW8M3Fhny3I/7nan7N5gfx6BrKIYnK" crossorigin="anonymous">
+
+    {% block header %}
+    {% endblock %}
+
+  </head>
+
+  <body class="is-preload">
+
+      <!-- Wrapper -->
+      <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+          <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+              <div class="logo">
+                <a>PyTradeBot</a>
+              </div>
+            </header>
+
+            {% block content %}
+            {% endblock %}
+            
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sticky-top">
+          <div class="inner">
+              
+            <!-- Menu -->
+            <nav id="menu">
+              <ul>
+                <li><a class="dropdown-item text-wrap" href="{% url 'index' %}">Página Inicial</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'login' %}" alt="Realizar o Login no sistema." target="_blank">Login</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'cadastro' %}" alt="Realizar o seu cadastro no sistema.">Cadastro</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'termosuso' %}" alt="Termos de uso do sistema.">Termos de Uso</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'quemsomos' %}" alt="Leia quem somos.">Quem Somos</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'valores' %}" alt="Leia nossa missão, visão e valores da empresa.">Valores</a></li>
+                <li><a class="dropdown-item text-wrap" href="{% url 'index_graficos' %}" alt="Visualize gráficos de criptomoedas em tempo real.">Gráficos de Criptomoedas</a></li>
+              </ul>
+            </nav>
+
+            <!-- Featured Posts -->
+            <div class="featured-posts">
+              <div class="owl-carousel owl-theme">
+                  <div class="featured-item">
+                    <img src="{% static 'images/logo-verde.png' %}" alt="Logo">
+                  </div>
+                </a>
+              </div>
+            </div>
+      
+            <!-- Footer -->
+            <footer id="footer">
+              <p class="copyright">PyTradeBot</p>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript" src="{% static 'jquery/jquery-3.4.1.min.js' %}" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/fontawesome.all.min.js' %}" integrity="sha384-b3ua1l97aVGAPEIe48b4TC60WUQbQaGi2jqAWM90y0OZXZeyaTCWtBTKtjW2GXG1" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/browser.min.js' %}" integrity="sha384-bEfBnTKVa3ZdQO7mr4C1gf6463XUUxbviiP5a8NimXaQ/w3mO9kfHX9cG4g7kp/P" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/breakpoints.min.js' %}" integrity="sha384-J+AZsvE6Gaw4IQK50qZlUWHOsmeYSwGf8GF8Ft0JM8DSGKVcD5w6+bbF3pQkxCtU" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/transition.js' %}" integrity="sha384-DIuJ5Uvj8BU7PywJg2YXW/kQvCxaAFdFgOlKubTmG1qJXpuvEYohoDT4SjaNepfv" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/owl-carousel.js' %}" integrity="sha384-5KzzBHtMdpdT1h360ateB2O+BDVsg2gLWXYuXmOnCizLQefx6QjObI83V5NeVrXg" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/custom.js' %}" integrity="sha384-COZpbEiHBJmE8tujWtYYGT5tYYWqnG5ufp11VGDUm4CCPnBjOUntk/k2wrLMeJEx" crossorigin="anonymous"></script>
+      {% block scripts %}
+      {% endblock %}
+  </body>
+</html>

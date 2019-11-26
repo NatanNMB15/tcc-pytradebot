@@ -1,0 +1,25 @@
+---
+version: '3'
+services:
+  freqtrade:
+    image: pytradebot:latest
+    container_name: pytradebot-$id_usuario
+    networks: 
+      - pytradebot
+    ports:
+      - "8080:8080"
+    environment:
+      id_usuario: $id_usuario
+      DB_NAME: 'kubernetes_django'
+      DB_USER: 'pgdb'
+      DB_PASSWORD: '6%9P8o7#S6t%'
+      DB_HOST: 'postgres-service'
+      DB_PORT: 5432
+    volumes:
+      - "./freqtrade:/freqtrade/freqtrade/"
+      - "./user_data:/freqtrade/user_data"
+      - "./postgresql:/freqtrade/postgresql/"
+
+networks:
+  pytradebot:
+    external: true

@@ -1,0 +1,43 @@
+{% extends 'site-pytradebot/base/base_index.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="Somos uma empresa voltada para tecnologia, trazendo o conceito de investimento automatizado em criptomoedas." />
+{% endblock %}
+
+{% block title %}Quem somos{% endblock %}
+
+{% block content %}
+<!-- Top Image -->
+<section class="top-image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <img src="{% static 'images/investimento.jpg' %}" alt="Investimentos">
+        <div class="down-content text-justify">
+          <h4>Quem somos</h4>
+          <p>Somos uma empresa voltada para tecnologia, no qual está disposta a trazer o conceito de investimento automatizado em criptomoedas,
+assim facilitando a introdução de qualquer pessoa com vontade de crescer financeiramente nesse novo mercado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+			
+<!-- Left Image -->
+<section class="left-image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{% static 'images/grafico.jpg' %}" alt="Gráficos">
+      </div>
+      <div class="col-md-6">
+        <div class="right-content text-justify">
+          <h4>Por quê PytradeBot?</h4>
+          <p>A PyTradeBot está disponibilizando um sistema de automação de investimentos em criptomoedas. As configurações da automação são compostas por métricas através indicadores de análise técnica de gráficos, no qual você pode criar as suas próprias métricas para seus investimentos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

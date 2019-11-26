@@ -1,0 +1,93 @@
+{% load static %}
+<!-- Corpo -->
+<section class="forms mt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Painel de Controle:</h2>
+          {% if saldo_btc == 'Carteira não cadastrada' %}
+          <div class="col-md-12 alert alert-warning" role="alert">
+            <p>Antes de iniciar o robô é necessário adicionar uma carteira.</p>
+          </div>
+          {% endif %}
+        </div>
+        {% if saldo_btc != 'Carteira não cadastrada' %}
+          <div class="col-md-6">
+            <fieldset>
+              <label for="saldobit">Saldo em Bitcoin</label>
+              <input name="saldobtc" type="text" class="form-control" id="saldobtc" value="{{ saldo_btc }}" readonly>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <label for="saldoreal">Saldo em Real</label>
+              <input name="saldoreal" type="text" class="form-control" id="saldoreal" value="{{ saldo_real }}" readonly>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <label for="porclucro">Porcentagem total de lucros realizados</label>
+              <input name="porclucro" type="text" class="form-control" id="porclucro" value="{{ lucro }}" readonly>
+            </fieldset>
+          </div>
+        {% endif %}
+        <div class="col-md-6">
+          <fieldset>
+            <label for="saldoreal">Status do Robô</label>
+            <input name="status" type="text" class="form-control" id="status" value="{{ estado }}" readonly>
+            {% if saldo_btc != 'Carteira não cadastrada' %}
+              <button type="button" class="button btn-action" data-url="{% url 'controlerobo' pk=usuario.pk acao=acao %}">
+                <div class="float-left">
+                  {{ acao }}&nbsp;
+                </div>
+                <div class="float-right btn-right-spin d-none">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+              </button>
+            {% endif %}
+            {% if estado != 'Offline' %}
+              <button type="button" class="button btn-action" data-url="{% url 'controlerobo' pk=usuario.pk acao=acao_reiniciar %}">
+                <div class="float-left">
+                  Reiniciar&nbsp;
+                </div>
+                <div class="float-right btn-right-spin d-none">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+              </button>
+              <button type="button" class="button btn-action" data-url="{% url 'controlerobo' pk=usuario.pk acao=acao_remover %}">
+                <div class="float-left">
+                  Deletar Robô&nbsp;
+                </div>
+                <div class="float-right btn-right-spin d-none">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+              </button>
+            {% endif %}
+            {% if estado != 'Operando (Sem Comprar)' and estado != 'Offline' and estado != 'Parado' %}
+              <div class="w-100"><br></div>
+              <button type="button" class="button btn-action" data-url="{% url 'controlerobo' pk=usuario.pk acao=acao_parar_compras %}">
+                <div class="float-left">
+                  Parar compras automáticas&nbsp;
+                </div>
+                <div class="float-right btn-right-spin d-none">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+              </button>
+            {% elif estado == 'Operando (Sem Comprar)' %}
+              <div class="w-100"><br></div>
+              <button type="button" class="button btn-action" data-url="{% url 'controlerobo' pk=usuario.pk acao=acao_reiniciar %}">
+                <div class="float-left">
+                  Retomar compras automáticas&nbsp;
+                </div>
+                <div class="float-right btn-right-spin d-none">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+              </button>
+            {% endif %}
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,6 @@
+# Load common requirements
+-r requirements-common.txt
+
+numpy==1.17.3
+pandas==0.25.2
+psycopg2==2.8.3

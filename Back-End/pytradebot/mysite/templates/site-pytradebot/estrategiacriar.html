@@ -1,0 +1,57 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Criar estratégia{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Criar Estratégia</h1>
+      </div>
+    </div>
+  </div>
+</div>
+            
+<!-- Corpo -->
+<section class="forms">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Indicadores:</h2>
+        </div>
+        <form id="contact" action="" method="post">
+          <div class="col-md-12">
+            <select name="category" id="category">
+              <option value="categories" selected>Selecione o tipo</option>
+              <option value="estrategia1">Compra</option>
+              <option value="estrategia2">Venda</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <input name="mediamovel" type="number" class="form-control" id="mediamovel" placeholder="Média Móvel Exponencial..." required="">
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <input name="volume" type="number" class="form-control" id="volume" placeholder="Volume da Criptomoeda..." required="">
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <input name="mediadivcon" type="number" class="form-control" id="mediadivcon" placeholder="Média de Divergência/Convergência..." required="">
+            </fieldset>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" id="form-submit" class="button"><a href="{% url 'estrategiateste' %}">Submit</a></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

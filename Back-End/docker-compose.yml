@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  django:
+    image: django-pytradebot:latest
+    ports:
+      - "8000:8000"
+    networks: 
+      pytradebot:
+        ipv4_address: 172.28.1.2
+    command: ["sh", "/usr/local/bin/django-entrypoint.sh"]
+    environment:
+      DJANGO_EMAIL: 'pytradebotdevelopment@gmail.com'
+      DJANGO_PASSWORD: '%DjanGo#123%'
+      DB_NAME: 'kubernetes_django'
+      DB_USER: 'pgdb'
+      DB_PASSWORD: '6%9P8o7#S6t%'
+      DB_HOST: 'postgres-service'
+      DB_PORT: 5432
+      EMAIL_HOST: 'smtpout.secureserver.net'
+      EMAIL_PORT: 465
+      EMAIL_HOST_USER: 'noreply@pytradebot.com.br'
+      EMAIL_HOST_PASSWORD: 'P%7896#1236%y'
+      BOT_MANAGEMENT_URL: 'http://172.28.1.4:8081/'
+      COINMARKETCAP_API_KEY: '752b24d1-beca-48c2-989e-bb6d488624e9'
+    volumes:
+      - "./pytradebot:/opt/test/pytradebot:z"
+      - "./test/django-entrypoint.sh:/usr/local/bin/django-entrypoint.sh:ro"
+      - "./memcached.conf:/etc/memcached.conf:ro"
+    depends_on:
+      - postgres-service
+
+  postgres-service:
+    image: postgres:11.5
+    networks: 
+      pytradebot:
+        ipv4_address: 172.28.1.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: 'kubernetes_django'
+      POSTGRES_USER: 'pgdb'
+      POSTGRES_PASSWORD: '6%9P8o7#S6t%'
+    volumes:
+      - "static_db:/var/lib/postgresql/data:z"
+
+  docker-create-service:
+    image: docker-local-create:latest
+    networks: 
+      pytradebot:
+        ipv4_address: 172.28.1.4
+    ports:
+      - "8081:8081"
+    environment:
+      PORT: 8081
+      DB_NAME: 'kubernetes_django'
+      DB_USER: 'pgdb'
+      DB_PASSWORD: '6%9P8o7#S6t%'
+      DB_HOST: 'postgres-service'
+      DB_PORT: 5432
+    volumes:
+      - "./docker-local-create:/app:z"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    depends_on:
+      - django
+
+volumes:
+  static_db:
+
+networks:
+  pytradebot:
+    external: true

@@ -1,0 +1,99 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Vender criptomoedas{% endblock %}
+
+{% block header %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet" integrity="sha384-R+hE75lzVEbCCMXAol2DJWT4oS3HbiOLzbm9xSQVCd2F0dQoqYULWOqm0CcZOD3X" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Vender criptomoeda</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if estado == 'Operando' or estado == 'Operando (Sem Comprar)' %}
+  {% if trades > 0 %}
+    <!-- Forms -->
+    <section class="forms mt-3">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <form name="{{ form.form_name }}" id="comprar_criptomoeda" method="post" data-parsley-validate>
+            {% csrf_token %}
+              <div class="row">
+                {% for field in form %}
+                  {% if field.name == 'parar_compras' %}
+                    <div class="col-md-12">
+                      <div class="radio-item">
+                        {{ field }}
+                        {{ field.label_tag }}
+                        {% if field.help_text %}
+                          <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {{ field.errors }}
+                      </div>
+                    </div>
+                  {% else %}
+                    <div class="col-md-12 form-group">
+                      <fieldset>
+                        {{ field.label_tag }}
+                        {% if field.help_text %}
+                          <p class="help">{{ field.help_text|safe }}<br>Será utilizado o saldo equivalente a {{ valor }}BTC.</p>
+                        {% endif %}
+                        {{ field }}
+                        {{ field.errors }}
+                      </fieldset>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+                <div class="col-md-12 form-group">
+                  {{ form.non_field_errors }}
+                  <button id="form-submit" class="button" type="submit">Vender</button>
+                  <button type="button" class="button btn-link-js" data-url="{% url 'painelcontrole' %}">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% else %}
+    <!-- Page Heading -->
+    <div class="page-heading mt-4">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 alert alert-danger" role="alert">
+            <p>Não há criptomoedas disponíveis para venda. Realize uma compra manualmente ou aguarde o robô realizar uma compra automática, para ser possível realizar uma venda.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+  <!-- Page Heading -->
+  <div class="page-heading mt-4">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 alert alert-danger" role="alert">
+          <p>O robô não está no estado "Operando". Verifique o estado do robô.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'parsley/parsley.min.js' %}" integrity="sha384-JUOh6kjFo/adXnDgqD2bUZ5UnBiU82g4ou4bPgzsX4L8ajKYoW5lGrMSXBLskjK+" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'parsley/i18n/pt-br.js' %}" integrity="sha384-Art5n0YDAI7kJGolNQH34PnZ99Z0dCKhHLprBAMR0/TGNcGyZqMfmgYmEOyW+f8P" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/funcoes.js' %}" integrity="sha384-YomlE5eL7qsat6qtHONaoxzyAafAs6wfvS8CZrH60vXQdvEglmXSGtti0dbwfP9f" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'ajax/config.js' %}" integrity="sha384-1pljO3Kc4KuZTuZR6SW2Fwg99qvUR/eaKoBeeb4keedIhEjZs9yeFnX98G+1hS8M" crossorigin="anonymous"></script>
+{% endblock %}

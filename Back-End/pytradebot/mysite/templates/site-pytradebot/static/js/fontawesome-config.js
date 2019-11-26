@@ -1,0 +1,1 @@
+window.FontAwesomeConfig = { autoReplaceSvg: false }

@@ -1,0 +1,92 @@
+{% extends 'site-pytradebot/base/base_sistema.html' %}
+{% load static %}
+
+{% block title %}Painel de controle{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="page-heading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Bem-vindo</h1>
+        <p><strong>Você está acessando ao sistema PyTradeBot!</strong></p>
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" nonce="{{nonce}}" async>
+            {
+              "symbols": [
+                {
+                  "description": "Bitcoin - BRL",
+                  "proName": "MERCADO:BTCBRL"
+                },
+                {
+                  "description": "Bitcoin - USD",
+                  "proName": "BINANCE:BTCUSDT"
+                },
+                {
+                  "description": "Dominância BTC",
+                  "proName": "CRYPTOCAP:BTC.D"
+                },
+                {
+                  "description": "Ethereum - BTC",
+                  "proName": "BINANCE:ETHBTC"
+                },
+                {
+                  "description": "Dominância ETH",
+                  "proName": "CRYPTOCAP:ETH.D"
+                },
+                {
+                  "description": "Ripple - BTC",
+                  "proName": "BINANCE:XRPBTC"
+                },
+                {
+                  "description": "Tron - BTC",
+                  "proName": "BINANCE:TRXBTC"
+                },
+                {
+                  "description": "Binance Coin - BTC",
+                  "proName": "BINANCE:BNBBTC"
+                },
+                {
+                  "description": "ChainLink - BTC",
+                  "proName": "BINANCE:LINKBTC"
+                },
+                {
+                  "description": "Bitcoin Cash - BTC",
+                  "proName": "BINANCE:BCHABCBTC"
+                },
+                {
+                  "description": "Cardano - BTC",
+                  "proName": "BINANCE:ADABTC"
+                },
+                {
+                  "description": "Litecoin - BTC",
+                  "proName": "BINANCE:LTCBTC"
+                }
+              ],
+              "colorTheme": "dark",
+              "isTransparent": false,
+              "displayMode": "adaptive",
+              "locale": "br"
+            }
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ajax-painel-controle" data-url="{% url 'ajax_painel_controle' %}">
+  {% include 'site-pytradebot/ajax_update/painelcontrole.html' %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'ajax/button-get.js' %}" integrity="sha384-fqxXUTf4zcc8j364Vg7bgM/wA5T6ac+tVIoHXusTFrp/dbXl1qIYBcxEvH+HhMA6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'ajax/painelcontrole.js' %}" integrity="sha384-Zyf+7vXpfpH7rJeQEd3kDDoDIJmR8iJ9TUy3TkuheJUqaA2+iIZmxvcNHOEWXxqn" crossorigin="anonymous"></script>
+{% endblock %}
+      
