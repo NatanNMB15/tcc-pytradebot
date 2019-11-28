@@ -1,7 +1,7 @@
 {% extends 'site-pytradebot/base/base_sistema.html' %}
 {% load static %}
 
-{% block title %}Gráficos{% endblock %}
+{% block title %}Visualizar Gráficos{% endblock %}
 
 {% block header %}
 <link href="{% static 'css/tradingview.css' %}" rel="stylesheet" integrity="sha384-goR9HzmT8sC1fd4SRZgJ3lPx5ScRk5pxlKEVT29VXVr3wH+KZ0PEHhPVlJDOH7UQ" crossorigin="anonymous">
@@ -17,7 +17,7 @@
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" nonce="{{nonce}}" async>
+          <script src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" nonce="{{nonce}}" async>
             {
               "symbols": [
                 {
@@ -89,7 +89,7 @@
       <!-- TradingView Widget BEGIN -->
       <div class="tradingview-widget-container">
         <div id="tradingview_c2af7"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/tv.js" nonce="{{nonce}}"></script>
+        <script src="https://s3.tradingview.com/tv.js" nonce="{{nonce}}"></script>
       </div>
       <!-- TradingView Widget END -->
     </div>
@@ -103,7 +103,7 @@
       <!-- TradingView Widget BEGIN -->
       <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" nonce="{{nonce}}" async>
+          <script src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" nonce="{{nonce}}" async>
           {
             "width": "100%",
             "height": "100%",
@@ -123,5 +123,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'js/tradingview-config.js' %}" integrity="sha384-pjJFxNNbDdbhML9ebjIc+ICXgediCbFSKJpd69nptD5TaQxRfWuynsQbEejq7W29" crossorigin="anonymous"></script>
+<script src="{% static 'js/tradingview-config.js' %}" integrity="sha384-pjJFxNNbDdbhML9ebjIc+ICXgediCbFSKJpd69nptD5TaQxRfWuynsQbEejq7W29" crossorigin="anonymous"></script>
 {% endblock %}

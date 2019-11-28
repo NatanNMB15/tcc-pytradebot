@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_page, cache_control
 from django.urls import reverse_lazy
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
@@ -286,7 +286,6 @@ def ativar_cadastro(request, uidb64, token):
         return render(request, 'site-pytradebot/conta/ativacao_sucesso.html')
     return HttpResponse('Link de ativação inválido!')
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
 class Cadastro(CreateView): # pylint: disable=too-many-ancestors
     """
     Class de cadastro do formulário
@@ -683,7 +682,6 @@ def estrategiateste(request):
     return render(request, 'site-pytradebot/estrategiateste.html', {'usuario':usuario})
 
 @login_required
-@cache_page(60 * 15)
 def graficos(request):
     """
     Metódo para retornar o template de gráficos
@@ -691,14 +689,16 @@ def graficos(request):
     usuario = request.user
     return render(request, 'site-pytradebot/graficos.html', {'usuario':usuario})
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def index(request):
     """
     Metódo para retornar o template índice do site
     """
     return render(request, 'site-pytradebot/index.html')
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def index_graficos(request):
     """
     Metódo para retornar o template gráficos sem estar logado
@@ -731,7 +731,6 @@ def converter_real_bitcoin(quantidade):
         return 0
 
 @login_required
-@cache_page(60 * 15)
 def painelcontrole(request):
     """
     Metódo para retornar o template de painel de controle
@@ -921,14 +920,16 @@ def controlerobo(request, pk, acao):
 
     return JsonResponse(data, status=status_code)
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def termosuso_iframe(request):
     """
     Metódo para retornar o template iframe de termos de uso
     """
     return render(request, 'site-pytradebot/termosuso_iframe.html')
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def termosuso(request):
     """
     Metódo para retornar o template de termos de uso
@@ -999,14 +1000,16 @@ def transacaovender(request):
     usuario = request.user
     return render(request, 'site-pytradebot/transacaovender.html', {'usuario':usuario})
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def quemsomos(request):
     """
     Metódo para retornar o template de quem somos
     """
     return render(request, 'site-pytradebot/quemsomos.html')
 
-@cache_page(60 * 15)
+@cache_control(max_age=86400)
+@cache_page(86400)
 def valores(request):
     """
     Metódo para retornar o template de valores da empresa

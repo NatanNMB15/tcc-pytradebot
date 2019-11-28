@@ -6,10 +6,6 @@ https://templatemo.com/tm-529-ramayana
 
 */
 
-
-@import url(fontawesome.all.min.css);
-@import url(font_google_roboto_slab.css);
-
 body {
 	font-family: 'Roboto Slab', sans-serif;
 }
@@ -32,9 +28,8 @@ a:hover {
 }
 
 p {
-	font-size: 14px;
+	font-size: 1rem;
 	line-height: 25px;
-	color: #7a7a7a;
 	letter-spacing: 0.2px;
 }
 
@@ -143,8 +138,7 @@ section {
 }
 
 .main-banner .banner-content .banner-caption span {
-	font-size: 15px;
-	color: #aaaaaa;
+	font-size: 1rem;
 	letter-spacing: 0.5px;
 	display: inline-block;
 	margin-top: 20px;

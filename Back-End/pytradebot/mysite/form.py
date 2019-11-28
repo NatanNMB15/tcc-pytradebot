@@ -67,6 +67,7 @@ class ChangePasswordForm(PasswordChangeForm):
         required=True,
         widget=widgets.PasswordInput(attrs={
             'placeholder': "Senha atual",
+            'autocomplete': "off",
         })
     )
 
@@ -80,6 +81,7 @@ class ChangePasswordForm(PasswordChangeForm):
             'data-parsley-trigger':"focusin focusout",
             'data-parsley-remote-options':'{ "type": "POST", "dataType": "json" }',
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         error_messages={
             'min_length': "O tamanho da senha é muito curta.",
@@ -95,6 +97,7 @@ class ChangePasswordForm(PasswordChangeForm):
         widget=widgets.PasswordInput(attrs={
             'data-parsley-trigger':"focusin focusout",
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         help_text='Digite a sua senha novamente',
         error_messages={
@@ -153,6 +156,7 @@ class ResetForm(SetPasswordForm):
             'data-parsley-trigger':"focusin focusout",
             'data-parsley-remote-options':'{ "type": "POST", "dataType": "json" }',
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         error_messages={
             'min_length': "O tamanho da senha é muito curta.",
@@ -168,6 +172,7 @@ class ResetForm(SetPasswordForm):
         widget=widgets.PasswordInput(attrs={
             'data-parsley-trigger':"focusin focusout",
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         help_text='Digite a sua senha novamente',
         error_messages={
@@ -768,6 +773,7 @@ class UsuarioForm(ModelForm):
             'data-parsley-trigger':"focusin focusout",
             'data-parsley-remote-options':'{ "type": "POST", "dataType": "json" }',
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         help_text='Digite a sua senha',
         error_messages={
@@ -783,6 +789,7 @@ class UsuarioForm(ModelForm):
         widget=widgets.PasswordInput(attrs={
             'data-parsley-trigger':"focusin focusout",
             'placeholder': "Senha",
+            'autocomplete': "off",
         }),
         help_text='Digite a sua senha novamente',
         error_messages={

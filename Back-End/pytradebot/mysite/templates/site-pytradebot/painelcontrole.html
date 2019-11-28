@@ -14,7 +14,7 @@
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" nonce="{{nonce}}" async>
+          <script src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" nonce="{{nonce}}" async>
             {
               "symbols": [
                 {
@@ -86,7 +86,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'ajax/button-get.js' %}" integrity="sha384-fqxXUTf4zcc8j364Vg7bgM/wA5T6ac+tVIoHXusTFrp/dbXl1qIYBcxEvH+HhMA6" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{% static 'ajax/painelcontrole.js' %}" integrity="sha384-Zyf+7vXpfpH7rJeQEd3kDDoDIJmR8iJ9TUy3TkuheJUqaA2+iIZmxvcNHOEWXxqn" crossorigin="anonymous"></script>
+<script src="{% static 'ajax/button-get.js' %}" integrity="sha384-fqxXUTf4zcc8j364Vg7bgM/wA5T6ac+tVIoHXusTFrp/dbXl1qIYBcxEvH+HhMA6" crossorigin="anonymous"></script>
+<script src="{% static 'ajax/painelcontrole.js' %}" integrity="sha384-Zyf+7vXpfpH7rJeQEd3kDDoDIJmR8iJ9TUy3TkuheJUqaA2+iIZmxvcNHOEWXxqn" crossorigin="anonymous"></script>
 {% endblock %}
       

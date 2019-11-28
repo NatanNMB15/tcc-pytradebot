@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block meta %}
-<meta name="description" content="Realize o seu cadastro no sistema." />
+<meta name="description" content="Realize o seu cadastro no sistema. Necessário fornecer seus dados cadastrais e aceitar nosso Termos de Uso." />
 {% endblock %}
 
-{% block title %}Cadastro{% endblock %}
+{% block title %}Realizar Cadastro{% endblock %}
 
 {% block header %}
 <link href="{% static 'css/forms.css' %}" rel="stylesheet" integrity="sha384-R+hE75lzVEbCCMXAol2DJWT4oS3HbiOLzbm9xSQVCd2F0dQoqYULWOqm0CcZOD3X" crossorigin="anonymous">
@@ -17,8 +17,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-heading">
-          <h2>Cadastro</h2>
+        <div class="section-heading mb-md-5">
+          <h1 class="font-weight-bold">Cadastro</h1>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="modalTermos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,9 +79,9 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'jquery/jquery.mask.min.js' %}" integrity="sha384-CevauvEMZ8vrquU3i+GU0e4y7y/rW1encRFJFxXz/wDFO1YDMswE78+PcFMF5Suz" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{% static 'js/cadastro.js' %}" integrity="sha384-rbcx+qpEkmGL+pJr+PiNgAfyrdQ6sC127TPb1JEsGH0CRYipdiN39xp/EllDCADU" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{% static 'parsley/parsley.min.js' %}" integrity="sha384-JUOh6kjFo/adXnDgqD2bUZ5UnBiU82g4ou4bPgzsX4L8ajKYoW5lGrMSXBLskjK+" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{% static 'parsley/i18n/pt-br.js' %}" integrity="sha384-Art5n0YDAI7kJGolNQH34PnZ99Z0dCKhHLprBAMR0/TGNcGyZqMfmgYmEOyW+f8P" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{% static 'ajax/config.js' %}" integrity="sha384-1pljO3Kc4KuZTuZR6SW2Fwg99qvUR/eaKoBeeb4keedIhEjZs9yeFnX98G+1hS8M" crossorigin="anonymous"></script>
+<script src="{% static 'jquery/jquery.mask.min.js' %}" integrity="sha384-CevauvEMZ8vrquU3i+GU0e4y7y/rW1encRFJFxXz/wDFO1YDMswE78+PcFMF5Suz" crossorigin="anonymous"></script>
+<script src="{% static 'js/cadastro.js' %}" integrity="sha384-rbcx+qpEkmGL+pJr+PiNgAfyrdQ6sC127TPb1JEsGH0CRYipdiN39xp/EllDCADU" crossorigin="anonymous"></script>
+<script src="{% static 'parsley/parsley.min.js' %}" integrity="sha384-JUOh6kjFo/adXnDgqD2bUZ5UnBiU82g4ou4bPgzsX4L8ajKYoW5lGrMSXBLskjK+" crossorigin="anonymous"></script>
+<script src="{% static 'parsley/i18n/pt-br.js' %}" integrity="sha384-Art5n0YDAI7kJGolNQH34PnZ99Z0dCKhHLprBAMR0/TGNcGyZqMfmgYmEOyW+f8P" crossorigin="anonymous"></script>
+<script src="{% static 'ajax/config.js' %}" integrity="sha384-1pljO3Kc4KuZTuZR6SW2Fwg99qvUR/eaKoBeeb4keedIhEjZs9yeFnX98G+1hS8M" crossorigin="anonymous"></script>
 {% endblock %}
