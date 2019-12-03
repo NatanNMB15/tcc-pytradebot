@@ -69,6 +69,25 @@ class Trade(models.Model):
     def __str__(self):
         return str(self.id)
 
+class Estrategia(models.Model):
+    """
+    Classe modelo de Estratégia
+    """
+    nome = models.CharField(null=False, max_length=128, verbose_name="Nome da Estratégia")
+    template = models.CharField(null=True, max_length=128, verbose_name="Template da Estratégia")
+    metricas = JSONField(null=True, verbose_name="Métricas JSON")
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name="Usuário"
+    )
+
+    class Meta:
+        db_table = 'estrategias'
+
+    def __str__(self):
+        return self.usuario.email
+
 class CarteiraCriptomoeda(models.Model):
     """
     Classe modelo para API da Carteira de Criptomoedas

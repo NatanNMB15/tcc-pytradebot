@@ -12,3 +12,4 @@ django-db-geventpool==3.1.0
 django-inlinecss==0.3.0
 urllib3==1.25.7
 django-robots==3.1.0
+blockchain==1.4.4

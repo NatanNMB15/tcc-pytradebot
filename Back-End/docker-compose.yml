@@ -17,12 +17,11 @@ services:
       DB_PASSWORD: '6%9P8o7#S6t%'
       DB_HOST: 'postgres-service'
       DB_PORT: 5432
-      EMAIL_HOST: 'smtpout.secureserver.net'
+      EMAIL_HOST: 'smtp.gmail.com'
       EMAIL_PORT: 465
-      EMAIL_HOST_USER: 'noreply@pytradebot.com.br'
-      EMAIL_HOST_PASSWORD: 'P%7896#1236%y'
+      EMAIL_HOST_USER: 'email@email.com'
+      EMAIL_HOST_PASSWORD: 'senha'
       BOT_MANAGEMENT_URL: 'http://172.28.1.4:8081/'
-      COINMARKETCAP_API_KEY: '752b24d1-beca-48c2-989e-bb6d488624e9'
     volumes:
       - "./pytradebot:/opt/test/pytradebot:z"
       - "./test/django-entrypoint.sh:/usr/local/bin/django-entrypoint.sh:ro"

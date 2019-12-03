@@ -1,11 +1,9 @@
 import os
 import subprocess
+import locale
 import ast
 import json
 import urllib3
-
-from requests import Session
-from requests.exceptions import Timeout, TooManyRedirects
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -27,9 +25,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from localflavor.br.validators import BRCPFValidator
 
+from blockchain import util, exchangerates
+
 from .form import UsuarioForm, AtualizarUsuarioForm, CarteiraForm, \
-                  ComprarCriptomoedaForm, VenderCriptomoedaForm
-from .models import Usuario, CarteiraCriptomoeda, Trade
+                  ComprarCriptomoedaForm, VenderCriptomoedaForm, EstrategiaForm
+from .models import Usuario, CarteiraCriptomoeda, Trade, Estrategia
 
 def browserconfig(request):
     """
@@ -637,7 +637,10 @@ class ComprarCriptomoeda(FormView): # pylint: disable=too-many-ancestors
         context['usuario'] = usuario
         try:
             carteira = CarteiraCriptomoeda.objects.get(usuario=usuario)
-            context['valor'] = carteira.valor_operacao
+            # Pega o saldo Bitcoin da carteira
+            temp_operacao = carteira.valor_operacao
+            saldo_operacao = format(temp_operacao, '.8f')
+            context['valor'] = saldo_operacao
             context['operacoes'] = carteira.num_operacoes
         # Se não existir carteira de criptomoedas cadastrada
         except ObjectDoesNotExist:
@@ -649,37 +652,47 @@ class ComprarCriptomoeda(FormView): # pylint: disable=too-many-ancestors
         context['estado'] = resultado['estado']
         return context
 
-@login_required
-def estrategiaadicionar(request):
+@method_decorator(login_required, name='dispatch')
+class EstrategiaCriar(CreateView): # pylint: disable=too-many-ancestors
     """
-    Metódo para retornar o template de estratégia adicionar
+    Classe para adicionar carteira
     """
-    usuario = request.user
-    return render(request, 'site-pytradebot/estrategiaadicionar.html', {'usuario':usuario})
+    model = Estrategia
+    template_name = 'site-pytradebot/estrategiaadicionar.html'
+    form_class = EstrategiaForm
+    success_url = reverse_lazy('estrategialistar')
 
-@login_required
-def estrategiacriar(request):
-    """
-    Metódo para retornar o template para criar estratégia
-    """
-    usuario = request.user
-    return render(request, 'site-pytradebot/estrategiacriar.html', {'usuario':usuario})
+    def form_valid(self, form):
+        """
+        Metódo para salvar o formulário válido com o objeto usuário do usuário autenticado
+        """
+        # Pega o modelo atual de usuário e pega o objeto usuário do banco de dados
+        # com base na chave primária do usuário autenticado
+        user_model = get_user_model()
+        usuario = user_model.objects.get(pk=self.request.user.pk)
+        form.instance.usuario = usuario
+        return super(EstrategiaCriar, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """
+        Metódo para pegar informações do usuário logado através do objeto usuário,
+        renderizando o template com os dados do usuário
+        """
+        context = super(EstrategiaCriar, self).get_context_data(**kwargs)
+        context['usuario'] = self.request.user
+        context['acao'] = "Adicionar"
+        return context
 
 @login_required
 def estrategialistar(request):
     """
-    Metódo para retornar o template de estratégia listar
+    Metódo para retornar o template de listar estratégias
     """
     usuario = request.user
-    return render(request, 'site-pytradebot/estrategialistar.html', {'usuario':usuario})
-
-@login_required
-def estrategiateste(request):
-    """
-    Metódo para retornar o template para testar estratégia
-    """
-    usuario = request.user
-    return render(request, 'site-pytradebot/estrategiateste.html', {'usuario':usuario})
+    # Pega as estratégias do usuário
+    estrategias = Estrategia.objects.filter(usuario=usuario)
+    return render(request, 'site-pytradebot/estrategialistar.html',
+                  {'usuario':usuario, 'estrategias':estrategias})
 
 @login_required
 def graficos(request):
@@ -707,28 +720,15 @@ def index_graficos(request):
 
 def converter_real_bitcoin(quantidade):
     """
-    Metódo para converter Bitcoin para Real utilizando a BlockChain Info
+    Metódo para converter Bitcoin para Real utilizando a API em Python da 'BlockChain Info'
     utilizando dados em tempo real
     """
-
-    url = 'https://blockchain.info/ticker'
-    headers = {
-        'Accepts': 'application/json',
-    }
-
-    session = Session()
-    session.headers.update(headers)
-
-    try:
-        # Tenta realizar a requisição da API
-        response = session.get(url)
-        # Pega o resultado dos dados em JSOn
-        data = json.loads(response.text)
-        temp_resultado = data['BRL']['last'] * quantidade
-        resultado = format(temp_resultado, '.2f')
-        return resultado
-    except (ConnectionError, Timeout, TooManyRedirects):
-        return 0
+    util.TIMEOUT = 5 #time out after 5 seconds
+    ticker = exchangerates.get_ticker()
+    temp_resultado = float(ticker['BRL'].last) * float(quantidade)
+    locale.setlocale(locale.LC_MONETARY, 'pt_BR.UTF-8')
+    resultado = locale.currency(temp_resultado, grouping=True, symbol=True)
+    return resultado
 
 @login_required
 def painelcontrole(request):
@@ -750,18 +750,21 @@ def painelcontrole(request):
             for i in trades:
                 porc_lucro += i.close_profit
             # Pega o saldo Bitcoin da carteira
-            saldo_btc = carteira.saldo
+            temp_btc = carteira.saldo
             # Se estiver no modo de simulação
             if carteira.simulacao:
                 # Realiza o cálculo da porcentagem do lucro com o saldo fictício
-                saldo_btc = saldo_btc * (porc_lucro + 1)
+                temp_btc = float(temp_btc) * float((porc_lucro + 1))
             # Chama o método para converter Bitcoin para real
-            temp_real = converter_real_bitcoin(quantidade=saldo_btc)
-            saldo_real = 'R$ ' + str(temp_real)
+            temp_real = converter_real_bitcoin(quantidade=temp_btc)
+            saldo_real = str(temp_real)
             # Normaliza a porcentagem de lucro
             porc_lucro = porc_lucro * 100
             temp_lucro = format(porc_lucro, '.2f')
             lucro = str(temp_lucro) + '%'
+            # Normaliza o saldo em Bitcoin para 16 casas decimais
+            format_btc = format(temp_btc, '.16f')
+            saldo_btc = str(format_btc)
         else:
             saldo_btc = 'Robô não está operando'
             saldo_real = 'Robô não está operando'
@@ -804,18 +807,21 @@ def ajax_painel_controle(request):
             for i in trades:
                 porc_lucro += i.close_profit
             # Pega o saldo Bitcoin da carteira
-            saldo_btc = carteira.saldo
+            temp_btc = carteira.saldo
             # Se estiver no modo de simulação
             if carteira.simulacao:
                 # Realiza o cálculo da porcentagem do lucro com o saldo fictício
-                saldo_btc = saldo_btc * (porc_lucro + 1)
+                temp_btc = float(temp_btc) * float((porc_lucro + 1))
             # Chama o método para converter Bitcoin para real
-            temp_real = converter_real_bitcoin(quantidade=saldo_btc)
-            saldo_real = 'R$ ' + str(temp_real)
+            temp_real = converter_real_bitcoin(quantidade=temp_btc)
+            saldo_real = str(temp_real)
             # Normaliza a porcentagem de lucro
             porc_lucro = porc_lucro * 100
             temp_lucro = format(porc_lucro, '.2f')
             lucro = str(temp_lucro) + '%'
+            # Normaliza o saldo em Bitcoin para 16 casas decimais
+            format_btc = format(temp_btc, '.16f')
+            saldo_btc = str(format_btc)
         else:
             saldo_btc = 'Robô não está operando'
             saldo_real = 'Robô não está operando'
@@ -946,13 +952,12 @@ def transacaohistorico(request):
     status_robo(pytradebot_id=id_usuario)
     porc_lucro = 0
     # Pega todos os trades referentes ao usuário logado
-    trades = Trade.objects.filter(user=usuario).order_by('-is_open', '-close_date')
+    numero_trades = Trade.objects.filter(user=usuario).count()
     # Se o usuário tiver carteira cadastrada
     if CarteiraCriptomoeda.objects.filter(usuario=usuario).exists():
-        carteira = CarteiraCriptomoeda.objects.get(usuario=usuario)
         trades_fechado = Trade.objects.filter(user=usuario, is_open=False)
         porc_lucro = 0
-        # Percorre todos os trades fechados e calcula o saldo
+        # Percorre todos os trades fechados e calcula o lucro
         for i in trades_fechado:
             porc_lucro += i.close_profit
         # Normaliza a porcentagem de lucro
@@ -961,11 +966,16 @@ def transacaohistorico(request):
 
     lucro = str(temp_lucro) + '%'
 
+    # Primeira página do histórico de transações
+    pagina = 1
+    lista_trades = Trade.objects.filter(user=usuario).order_by('-is_open', '-close_date')[:10]
+
     return render(request, 'site-pytradebot/transacaohistorico.html',
-                  {'usuario':usuario, 'trades':trades, 'lucro': lucro})
+                  {'usuario':usuario, 'trades':lista_trades, 'lucro': lucro, 'pagina': pagina,
+                   'numero_trades':numero_trades})
 
 @login_required
-def ajax_historico_transacoes(request):
+def ajax_historico_transacoes(request, pagina):
     """
     Metódo para retornar os componentes do histórico de transações
     """
@@ -974,23 +984,34 @@ def ajax_historico_transacoes(request):
     status_robo(pytradebot_id=id_usuario)
     porc_lucro = 0
     # Pega todos os trades referentes ao usuário logado
-    trades = Trade.objects.filter(user=usuario).order_by('-is_open', '-close_date')
+    numero_trades = Trade.objects.filter(user=usuario).count()
     # Se o usuário tiver carteira cadastrada
     if CarteiraCriptomoeda.objects.filter(usuario=usuario).exists():
-        carteira = CarteiraCriptomoeda.objects.get(usuario=usuario)
         trades_fechado = Trade.objects.filter(user=usuario, is_open=False)
         porc_lucro = 0
-        # Percorre todos os trades fechados e calcula o saldo
+        # Percorre todos os trades fechados e calcula o lucro
         for i in trades_fechado:
             porc_lucro += i.close_profit
         # Normaliza a porcentagem de lucro
         porc_lucro = porc_lucro * 100
         temp_lucro = format(porc_lucro, '.2f')
 
+    # Se for a primeira página retorna os 10 primeiros itens
+    if pagina == 1:
+        lista_trades = Trade.objects.filter(user=usuario).order_by('-is_open', '-close_date')[:10]
+    # Senão retorna os itens entre os valores
+    else:
+        intervalo = (pagina - 1) * 10
+        fim_intervalo = intervalo + 10
+        lista_trades = Trade.objects \
+                            .filter(user=usuario) \
+                            .order_by('-is_open', '-close_date')[int(intervalo):int(fim_intervalo)]
+
     lucro = str(temp_lucro) + '%'
 
     return render(request, 'site-pytradebot/ajax_update/transacaohistorico.html',
-                  {'trades':trades, 'lucro': lucro})
+                  {'trades':lista_trades, 'lucro': lucro, 'pagina': pagina,
+                   'numero_trades':numero_trades})
 
 @login_required
 def transacaovender(request):

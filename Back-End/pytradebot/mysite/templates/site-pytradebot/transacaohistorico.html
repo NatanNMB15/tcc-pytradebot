@@ -5,13 +5,31 @@
 
 {% block content %}
 
-<div id="ajax-historico-transacoes" data-url="{% url 'ajax_historico_transacoes' %}">
+<div id="ajax-historico-transacoes" data-url="{% url 'ajax_historico_transacoes' pagina=pagina %}">
     {% include 'site-pytradebot/ajax_update/transacaohistorico.html' %}
+</div>
+<div class="col-md-12 mb-5">
+    <button type="button" class="button btn-action anterior d-none" data-url="{% url 'ajax_historico_transacoes' %}" pagina="{{ pagina }}" acao="-">
+      <div class="float-left">
+        Anterior&nbsp;
+      </div>
+      <div class="float-right btn-right-spin d-none">
+          <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+      </div>
+    </button>
+    <button type="button" class="button btn-action proximo" data-url="{% url 'ajax_historico_transacoes' %}" pagina="{{ pagina }}" acao="+">
+      <div class="float-left">
+        Próximo&nbsp;
+      </div>
+      <div class="float-right btn-right-spin d-none">
+          <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+      </div>
+    </button>
 </div>
 
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'ajax/transacaohistorico.js' %}" integrity="sha384-7p0UYi6yWEnORuPR6VmqPY24Y7/JryN/ycGHrKA9GJKfYy8D6mDpw60VNSVwfiwb" crossorigin="anonymous"></script>
+<script src="{% static 'ajax/transacaohistorico.js' %}" integrity="sha384-3anoRHCDbd3cm/sK8FTmbLGkJ+wuRIziBpa1wEhA/nYSmUq8M2iCPr3suQXV+c+E" crossorigin="anonymous"></script>
 {% endblock %}
             

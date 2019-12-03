@@ -1,53 +1,33 @@
 {% extends 'site-pytradebot/base/base_sistema.html' %}
 {% load static %}
 
-{% block title %}Estratégia listar{% endblock %}
+{% block title %}Lista de Estratégia(s){% endblock %}
 
 {% block content %}
 <!-- Corpo -->
 <!-- Tables -->
-<section class="tables">
+<section class="tables mt-0">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="section-heading">
-          <h2>Lista de Estratégias</h2>
+          <h2>Lista de Estratégia(s)</h2>
         </div>
-        <div class="default-table">
-          <table>
-            <thead>
+        <div class="table-responsive">
+          <table class="table table-bordered w-auto">
+            <thead class="thead-light">
               <tr>
-                <th>ID.</th>
-                <th>Nome</th>
-                <th>Tipo</th>
+                <th class="text-center text-justify" scope="col">Nome</th>
+                <th class="text-center text-justify" scope="col">Template</th>
               </tr>
             </thead>
             <tbody>
+              {% for estrategia in estrategias %}
               <tr>
-                <td>#10</td>
-                <td>teste</td>
-                <td>Compra</td>
+                <td class="text-center text-justify" scope="row">{{ estrategia.nome }}</td>
+                <td class="text-center text-justify">{{ estrategia.template }}</td>
               </tr>
-              <tr>
-                <td>#12</td>
-                <td>teste</td>
-                <td>Compra</td>
-              </tr>
-              <tr>
-                <td>#13</td>
-                <td>teste</td>
-                <td>Venda</td>
-              </tr>
-              <tr>
-                <td>#14</td>
-                <td>teste</td>
-                <td>Venda</td>
-              </tr>
-              <tr>
-                <td>#151</td>
-                <td>teste</td>
-                <td>Venda</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

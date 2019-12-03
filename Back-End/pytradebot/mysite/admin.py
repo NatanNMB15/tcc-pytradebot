@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
-from .models import Usuario, CarteiraCriptomoeda, Trade
+from .models import Usuario, CarteiraCriptomoeda, Trade, Estrategia
 from .form import CustomUserChangeForm, CustomUserCreationForm
 
 class UsuarioAdmin(UserAdmin):
@@ -53,3 +53,4 @@ class TradeAdmin(admin.ModelAdmin):
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(CarteiraCriptomoeda, CarteiraAdmin)
 admin.site.register(Trade, TradeAdmin)
+admin.site.register(Estrategia)

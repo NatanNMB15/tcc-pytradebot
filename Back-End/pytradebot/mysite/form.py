@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, Set
                                         PasswordChangeForm, UserCreationForm, UserChangeForm
 from localflavor.br.validators import BRCPFValidator
 from parsley.decorators import parsleyfy
-from .models import Usuario, CarteiraCriptomoeda
+from .models import Usuario, CarteiraCriptomoeda, Estrategia
 
 class CustomUserCreationForm(UserCreationForm):
     """
@@ -24,6 +24,63 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = Usuario
         fields = '__all__'
+
+@parsleyfy
+class EstrategiaForm(ModelForm):
+    """
+    Classe do formulário de cadastro do Usuário
+    """
+
+    # Classe de Metadados
+    class Meta:
+        model = Estrategia
+        # Pegar os campos do model
+        fields = ['nome', 'template']
+
+    def __init__(self, *args, **kwargs):
+        """
+        Metódo de inicialização do Form
+        """
+        super(EstrategiaForm, self).__init__(*args, **kwargs)
+        # Adicionar a classe CSS 'form-control' para todos os campos do formulário
+        # exceto o campo 'usuario'
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+    form_name = 'estrategia_form'
+    scope_prefix = 'dados_estrategia'
+
+    # Adicionar a classe CSS 'djng-field-required' para campos obrigatórios
+    required_css_class = 'field-required'
+
+    templates = [('Compra e venda EMA 20', 'Compra e venda EMA 20'), \
+                 ('Compra e venda MACD', 'Compra e venda MACD'), ]
+
+    nome = forms.CharField(
+        label='Nome da Estratégia',
+        max_length=128,
+        required=True,
+        widget=widgets.TextInput(attrs={
+            'data-parsley-trigger':"focusin focusout",
+            'placeholder': "Nome da Estratégia",
+        }),
+        help_text='Digite o nome da estratégia'
+    )
+
+    template = forms.ChoiceField(
+        label='Modelo de estratégia',
+        required=True,
+        widget=widgets.Select(attrs={
+            'data-parsley-trigger':"focusin focusout",
+        }),
+        choices=templates,
+        help_text='Escolha o modelo de estratégia'
+    )
+
+    initial = {
+        'nome': '',
+        'template': '',
+    }
 
 @parsleyfy
 class ChangePasswordForm(PasswordChangeForm):

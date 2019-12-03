@@ -1,9 +1,9 @@
 {% load static %}
-{% load multiply %}
+{% load math_extras %}
 
 <!-- Corpo -->
 <!-- Tables -->
-<section class="tables mt-0 mt-md-0">
+<section id="tabela-historico" class="tables mt-0 mt-md-0" max="{{ numero_trades }}">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -58,7 +58,7 @@
                 {% endif %}
                 {% if trade.close_profit != None %}
                   <td class="text-center text-justify">
-                    {{ trade.close_profit|multiply:100|floatformat:2 }}%
+                    {{ trade.close_profit|multiplicar:100|floatformat:2 }}%
                   </td>
                 {% else %}
                   <td class="text-center text-justify"></td>
