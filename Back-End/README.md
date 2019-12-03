@@ -3,9 +3,7 @@
 ## Configurar Email para o Back-End
 
 
-Antes de implantar o Back-End é necessário configurar um Email para o Django utilizar:
-
-1. Configurar Email para o Django:
+Antes de implantar o Back-End é necessário configurar um Email para o Django utilizar.
 
 Abra o arquivo docker-compose.yml, e edite a seguinte seção do arquivo com as configurações do Email a ser utilizado.
 
